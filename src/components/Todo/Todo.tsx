@@ -11,7 +11,7 @@ export default function Todo() {
 
   const [todos, setTodos] = useState<Task[]>([])
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error } = useQuery({
     queryKey: ["todoItems"],
     queryFn: () =>
       axios.get('http://localhost:3004/tasks')
@@ -32,8 +32,14 @@ export default function Todo() {
         loading: isLoading
       }}>
         <div>
-          <AddTask />
-          <TaskList />
+          {error ?
+            (<h3>Error loading data!</h3>) :
+            <>
+              <AddTask />
+              <TaskList />
+            </>
+          }
+
         </div>
       </TodoContext.Provider>
     </div>

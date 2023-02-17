@@ -13,6 +13,7 @@ export default function AddTask() {
   }
   const [taskData, setTaskData] = useState<TaskData>(initalTaskValues);
   const queryClient = useQueryClient();
+  const { loading } = useTodoContext();
 
   const mutationAddTask = useMutation({
     mutationFn: ({ title, content }: TaskData) => axios.post(`http://localhost:3004/tasks/`, { title, content }),
@@ -55,7 +56,10 @@ export default function AddTask() {
         />
       </label>
 
-      <button className={styles.add_task_btn}>Add</button>
+      <button className={styles.add_task_btn}
+        disabled={loading}>
+        Add
+      </button>
 
     </form >
   )
