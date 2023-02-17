@@ -1,13 +1,18 @@
-import { useState } from 'react'
 import './App.css'
+import Todo from './components/Todo/Todo'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const queryClient = new QueryClient()
 
   return (
-    <div className="App">
-      
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <Todo />
+      </div>
+    </QueryClientProvider>
+
   )
 }
 
