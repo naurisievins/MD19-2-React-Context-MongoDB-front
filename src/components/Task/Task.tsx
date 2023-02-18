@@ -42,38 +42,40 @@ export default function Task() {
   }
 
   return (
-    tasks && tasks.map(task => (
-      <div className={styles.task_wrapper} key={task._id}>
-        <div className={styles.wrapper_col}>
-          <input type="checkbox"
-            defaultChecked={task.isDone}
-            onClick={() => mutationTaskCompleted.mutate({ id: task._id, isDone: task.isDone })}
-          />
-        </div>
+    <>
+      {tasks && tasks.map(task => (
+        <div className={styles.task_wrapper} key={task._id}>
+          <div className={styles.wrapper_col}>
+            <input type="checkbox"
+              defaultChecked={task.isDone}
+              onClick={() => mutationTaskCompleted.mutate({ id: task._id, isDone: task.isDone })}
+            />
+          </div>
 
-        <div className={`${styles.wrapper_col} ${styles.wrapper_col_align}`}>
-          <div className={styles.task_title}>
-            <span style={task.isDone ?
-              { textDecoration: 'line-through', color: 'rgba(128, 128, 128, 0.253)' } : {}}>
-              {task.title}
+          <div className={`${styles.wrapper_col} ${styles.wrapper_col_align}`}>
+            <div className={styles.task_title}>
+              <span style={task.isDone ?
+                { textDecoration: 'line-through', color: 'rgba(128, 128, 128, 0.253)' } : {}}>
+                {task.title}
+              </span>
+            </div>
+            <div className={styles.task_content}>
+              <span style={task.isDone ?
+                { textDecoration: 'line-through', color: 'rgba(128, 128, 128, 0.253)' } : {}}>
+                {task.content}
+              </span>
+            </div>
+            <span className={styles.date}>{(task.date).slice(0, 10)}</span>
+          </div>
+
+          <div className={styles.wrapper_col}>
+            <span className={styles.delete_ico}
+              onClick={() => mutationTaskDelete.mutate(task._id)}>
+              X
             </span>
           </div>
-          <div className={styles.task_content}>
-            <span style={task.isDone ?
-              { textDecoration: 'line-through', color: 'rgba(128, 128, 128, 0.253)' } : {}}>
-              {task.content}
-            </span>
-          </div>
-          <span className={styles.date}>{(task.date).slice(0, 10)}</span>
         </div>
-
-        <div className={styles.wrapper_col}>
-          <span className={styles.delete_ico}
-            onClick={() => mutationTaskDelete.mutate(task._id)}>
-            X
-          </span>
-        </div>
-      </div>
-    ))
+      ))}
+    </>
   )
 }
